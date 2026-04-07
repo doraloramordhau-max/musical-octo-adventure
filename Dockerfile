@@ -1,7 +1,17 @@
-FROM golang:1.21-alpine
+FROM golang:1.22-alpine
+
 WORKDIR /app
+
+
+COPY go.mod go.sum ./
+
+
+RUN go mod download
+
+
 COPY . .
-RUN go mod init myapp || true
-RUN go mod tidy
+
+
 RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+
 CMD ["./main"]
