@@ -12,6 +12,7 @@ jobs:
       - uses: actions/setup-go@v4
         with:
           go-version: '1.21'
+          cache: false
       - run: |
           go mod init myapp || true
           go mod tidy
@@ -30,4 +31,4 @@ jobs:
       - uses: docker/build-push-action@v5
         with:
           push: true
-          tags: stanislaves/musical-octo:latest
+          tags: stanislaves/musical-octo:${{ github.ref_name }},stanislaves/musical-octo:latest
